@@ -2,7 +2,7 @@
   "name" : "ToonaBot",
   "version" : "0.0.1",
   "dependencies" : {
-    "discord.io" : "1.8.7",
+    "discord.io" : "2.2.3",
     "lodash" : "4.11.1"
   }
 }

@@ -9,14 +9,12 @@ var ToonaBot = require('./ToonaBot'),
 	    	actions: {
 		        init: function(rawEvent) {
 		            //Util.sendToChannel(Util.dimDuddlies, 'Hello, I\'m ToonaBot! Please Disregard me while I am under development.', bot);
-		            console.log("Started bot");
 		        },
 		        message: function(user, userID, channelID, message, rawEvent) {
-		        	if (_.startsWith(message, Util.PREFIX)) {
+		        	if (_.startsWith(message, Util.PREFIX) && channelID == 196038661572132864) {
 		        		try {
-		        			var numArgs = message.indexOf(' ');
 		        			var args = [];
-		        			if(numArgs > -1) {
+		        			if(message.indexOf(' ') > -1) {
 			        			var command = message.substring(Util.PREFIX.length, message.indexOf(' '));
 			        			var rawArgs = message.substring(Util.PREFIX.length + command.length + 1);
 			        			if(rawArgs.indexOf("\"") > -1) {

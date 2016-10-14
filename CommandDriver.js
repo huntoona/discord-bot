@@ -10,7 +10,7 @@ var ToonaBot = require('./ToonaBot'),
 	    	commands: {
 	    		help: function(user, userID, channelID, command, args, rawEvent) {
 	    			var helpText =
-	    			    'ToonaBot Command List:\n`help` -> A list of all commands (evidently some of you are that retarded...)\n`ping` -> Returns `pong` because why not\n`match <summonerName> <[server|\'na\']>` -> WIP Returns info about specified player\'s current game';
+	    			    'ToonaBot Command List:\n`help` -> A list of all commands (evidently some of you need this...)\n`ping` -> Returns `pong` because why not\n`match <summonerName> <[server|\'na\']>` -> WIP Returns info about specified player\'s current game';
 
 	    			Util.sendToChannel(channelID, helpText, bot);
 	    		},
@@ -26,25 +26,25 @@ var ToonaBot = require('./ToonaBot'),
 		        		    break;
 		        		case 1:
 		        		case 2:
-		        		    var gameServer = args.length > 1 ? args[1] : 'na';
+		        		    var gameServer = args.length > 1 ? args[1].toLowerCase() : 'na';
 		        		    var stdSummName = args[0].toLowerCase().replace(/ /g, '');
 		        			var call = Util.riotApiBase + '/api/lol/' + gameServer + Util.summonerNameSearch + stdSummName + '?api_key=' + Util.api_key;
 		        			needle.get(call, function(error, response) {
-		        				if (!error && response.statusCode == 200) {
+		        				if (!error && response.statusCode === 200) {
 		        					call = Util.riotApiBase + Util.currentGameSearch + Util.getCurrentGameSearchServerID(gameServer) + '/' + _.get(response, 'body[' + stdSummName + '].id') + '?api_key=' + Util.api_key;
 		        					needle.get(call, function(error, gameData) {
-		        						if (!error && gameData.statusCode === 200) {
-		        							console.log(response);
+		        						if (!error && gameData.statusCode == 200) {
+		        							//console.log(response);
 		        							Util.sendToChannel(channelID, Util.extractMatchData(_.get(gameData, 'body')), bot);
 		        							//console.log('Game Data:\n', _.get(gameData, 'body'));
-		        						} else if (response.statusCode === 404) {
+		        						} else if (gameData.statusCode === 404) {
 		        							Util.sendToChannel(channelID, 'The user you entered (`' + args[0] + '`) is not in a game', bot);
 		        						} else {
-		        							Util.sendToChannel(channelID, 'Something got screwed up. You might want to contact @Toona', bot);
+		        							Util.sendToChannel(channelID, 'Something got screwed up. You might want to contact @Toona ', bot);
 		        						}
 		        					});
 		        				} else {
-		        					Util.sendToChannel(channelID, 'An error occurred. It is possible that the summoner is not in a game, or you could have misspelt their name.', bot);
+		        					Util.sendToChannel(channelID, 'This summoner does not appear to exist.', bot);
 		        				}
 		        			});
 		        			break;

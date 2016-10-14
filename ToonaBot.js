@@ -1,4 +1,4 @@
-var DiscordClient = require('discord.io'),
+var Discord = require('discord.io'),
     _ = require('lodash'), 
     Util = require('./Util'),
     ActionDriver = require('./ActionDriver'),
@@ -7,9 +7,9 @@ var DiscordClient = require('discord.io'),
     bot = null,
 
     ToonaBot = function() {
-        bot = new DiscordClient({
+        bot = new Discord.Client({
             autorun: true,
-            token: 'MTcwNzE3NzUwNDk3NTA5Mzc2.CfNdWA.MmVzbvxw5TfIuO_j_7f7wO1_-TA'
+            token: 'MjMyOTE4NTcxNjc4ODI2NDk2.CtWBEA.TuNFUthDuIUd588o8lIBnKfSYE4'
         });
     
         initCommands();

@@ -104,6 +104,16 @@ var ToonaBot = require('./ToonaBot'),
 					redPlayers.push(currentValue);
 				}
 			});
+			message += '\nBlue Team:\n'
+			_.forEach(bluePlayers, function(currentValue, index, array) {
+				message += currentValue.summonerName + '\n';
+			});
+			message += '\nRed Team:\n'
+			_.forEach(redPlayers, function(currentValue, index, array) {
+				message += currentValue.summonerName + '\n';
+			});
+			console.log(bluePlayers);
+			console.log(redPlayers);
 			return message;
 		},
 
@@ -118,15 +128,15 @@ var ToonaBot = require('./ToonaBot'),
 				while(quoteLocs.length > 1) {
 					var tmp0 = quoteLocs.shift();
 					var tmp1 = quoteLocs.shift();
-					console.log(tmp0 + " -> " + tmp1);
-					console.log(str.substring(tmp0, tmp1));
-					console.log(str.substring(tmp0, tmp1).replace(/ /g, '%20'))
-					finalStr = finalStr.replace(str.substring(tmp0, tmp1), str.substring(tmp0, tmp1 + 1).replace(/ /g, '%20').replace(/"/g, ''));
+					// console.log(tmp0 + " -> " + tmp1);
+					// console.log(str.substring(tmp0, tmp1));
+					// console.log(str.substring(tmp0, tmp1).replace(/ /g, '%20'))
+					finalStr = finalStr.replace(str.substring(tmp0, tmp1 + 1), str.substring(tmp0, tmp1 + 1).replace(/ /g, '%20').replace(/"/g, ''));
 				}
-				console.log(finalStr);
+				//console.log(finalStr);
 				return finalStr;
 			} else {
-				throw new Error("WTF are you doing with your quotes, sir? (Uneven Number of Quotes)")
+				throw new Error("WTF are you doing with your quotes, sir? (Uneven Number of Quotes)");
 			}
 		}
     }
