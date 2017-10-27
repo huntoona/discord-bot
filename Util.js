@@ -6,22 +6,27 @@ var ToonaBot = require('./ToonaBot'),
 		// The prefix to be used when executing a command with ToonaBot
 		PREFIX: ';',
 
+		// ID for default Server Used
 		dimDuddlies: '129067982587428864',
 
+		//  Different Parts of the Riot API url to be used in commands
 		riotApiBase: 'https://na.api.pvp.net',
 
 		summonerNameSearch: '/v1.4/summoner/by-name/',
 
 		currentGameSearch: '/observer-mode/rest/consumer/getSpectatorGameInfo/',
 
+		// Pretty sure this key is expired but it still works for demonstration
 		api_key: 'a3f2c997-bb48-4682-9e6f-3ece4acf9f0a',
 
+		// Sends message to all channels in channelIDs
 		sendToChannels: function(channelIDs, message, bot) {
 		    _.forEach(channelIDs, function(currentValue, index, array) {
 		        Util.sendToChannel(currentValue, message, bot);
 		    });
 		},
 
+		// Sends message to channel with the specified ChannelID
 		sendToChannel: function(channelID, message, bot) {
 			bot.sendMessage({
 				to: channelID,
@@ -29,6 +34,7 @@ var ToonaBot = require('./ToonaBot'),
 		    });
 		},
 
+		// converts colloquial names to Riot's clunky server names
 		getCurrentGameSearchServerID: function(server) {
 			switch (server) {
 				case 'na':
@@ -60,6 +66,7 @@ var ToonaBot = require('./ToonaBot'),
 			}
 		},
 
+		// extracts relevant match information from data object returned by API
 		extractMatchData: function(data) {
 			var bluePlayers = [],
 			redPlayers = [];
@@ -112,11 +119,11 @@ var ToonaBot = require('./ToonaBot'),
 			_.forEach(redPlayers, function(currentValue, index, array) {
 				message += currentValue.summonerName + '\n';
 			});
-			console.log(bluePlayers);
-			console.log(redPlayers);
 			return message;
 		},
 
+		// processing function for command inputs to allow quotes around parameters that need spaces in them
+		// this both ensures an even number of quotes and URL encodes the spaces in quotes (to be used in API calls)
 		fillInQuotes: function(str) {
 			if((str.match(/"/g) || []).length % 2 === 0) {
 				var quoteLocs = [str.indexOf("\"")];
@@ -128,15 +135,11 @@ var ToonaBot = require('./ToonaBot'),
 				while(quoteLocs.length > 1) {
 					var tmp0 = quoteLocs.shift();
 					var tmp1 = quoteLocs.shift();
-					// console.log(tmp0 + " -> " + tmp1);
-					// console.log(str.substring(tmp0, tmp1));
-					// console.log(str.substring(tmp0, tmp1).replace(/ /g, '%20'))
 					finalStr = finalStr.replace(str.substring(tmp0, tmp1 + 1), str.substring(tmp0, tmp1 + 1).replace(/ /g, '%20').replace(/"/g, ''));
 				}
-				//console.log(finalStr);
 				return finalStr;
 			} else {
-				throw new Error("WTF are you doing with your quotes, sir? (Uneven Number of Quotes)");
+				throw new Error("Uneven Number of Quotes");
 			}
 		}
     }

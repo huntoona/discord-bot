@@ -19,7 +19,6 @@ var ToonaBot = require('./ToonaBot'),
 		        	Util.sendToChannel(channelID, 'pong', bot);
 		        },
 		        match: function(user, userID, channelID, command, args, rawEvent) {
-		        	// https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/Toona?api_key=a3f2c997-bb48-4682-9e6f-3ece4acf9f0a
 		        	switch (args.length) {
 		        		case 0:
 		        		    Util.sendToChannel(channelID, 'Please provide at least a summoner name\nType ;help for more details', bot);
@@ -34,9 +33,7 @@ var ToonaBot = require('./ToonaBot'),
 		        					call = Util.riotApiBase + Util.currentGameSearch + Util.getCurrentGameSearchServerID(gameServer) + '/' + _.get(response, 'body[' + stdSummName + '].id') + '?api_key=' + Util.api_key;
 		        					needle.get(call, function(error, gameData) {
 		        						if (!error && gameData.statusCode == 200) {
-		        							//console.log(response);
 		        							Util.sendToChannel(channelID, Util.extractMatchData(_.get(gameData, 'body')), bot);
-		        							//console.log('Game Data:\n', _.get(gameData, 'body'));
 		        						} else if (gameData.statusCode === 404) {
 		        							Util.sendToChannel(channelID, 'The user you entered (`' + args[0] + '`) is not in a game', bot);
 		        						} else {

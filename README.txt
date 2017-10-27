@@ -7,7 +7,7 @@ https://github.com/huntoona/discord-bot.git
 
 2. Next:
 npm install needle
-(because I've been too lazy to add it to the package.txt file as of yet, and yes i do realize that that takes less effort than typing this out)
+(because I've been too lazy to add it to the package.json file as of yet, and yes i do realize that that takes less effort than typing this out)
 
 3. If running in foreground (debugging, etc.), all you need to do now is run:
 node DiscordBotHome.js

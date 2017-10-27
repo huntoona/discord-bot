@@ -11,6 +11,7 @@ var ToonaBot = require('./ToonaBot'),
 		            //Util.sendToChannel(Util.dimDuddlies, 'Hello, I\'m ToonaBot! Please Disregard me while I am under development.', bot);
 		        },
 		        message: function(user, userID, channelID, message, rawEvent) {
+		        	// channelID is the 'bot command' channel in the server used
 		        	if (_.startsWith(message, Util.PREFIX) && channelID == 196038661572132864) {
 		        		try {
 		        			var args = [];
@@ -36,8 +37,6 @@ var ToonaBot = require('./ToonaBot'),
 			        	} catch(e) {
 			        		console.log(e);
 			        	}
-		        	} else if (message === "Hello, I'm ToonaBot! Please Disregard me while I am under development.") {
-		        		Util.sendToChannel(channelID, 'Fuck you!', bot);
 		        	}
 		        }
 	        },
